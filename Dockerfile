@@ -16,4 +16,7 @@ COPY . .
 
 EXPOSE 3000
 
-CMD [ "npm", "start" ]
+# Install PM2 globally
+RUN npm install pm2 -g
+
+CMD ["pm2-runtime", "npm", "--", "start"]

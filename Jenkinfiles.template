@@ -1,0 +1,33 @@
+pipeline {
+    agent { 
+        node {
+            label 'docker-agent-node'
+            }
+      }
+    stages {
+        stage('Install Dependencies') {
+            steps {
+                echo "Installing Project Dependencies"
+                sh '''
+                npm install
+                '''
+            }
+        }
+        stage('Test Project') {
+            steps {
+                echo "Running test case.."
+                sh '''
+                npm run test
+                '''
+            }
+        }
+        stage('Start the project') {
+            steps {
+                echo 'Deliver....'
+                sh '''
+                pm2 start "npm run start"
+                '''
+            }
+        }
+    }
+}
